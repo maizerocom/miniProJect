@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>Welcome to Class Attendance System</h1>
+    <br /><br />
+    <form class="form-inline" method="GET" action="{% url 'index' %}">
+        <div class="form-group">
+            <label for="inputSearch">ชื่อร้านอาหาร:</label>
+            <input type="text" class="form-control ml-3" id="inputSearch" name="inputSearch" placeholder="Search" value="{{search_txt}}">
+        </div>
+        <button type="submit" class="btn btn-primary ml-3">ค้นหา</button>
+    </form>
+    <br/><br/>
+    {% for fa in faculty %}
+    <h2>{{ fa.name }}</h2>
+    <!-- <h1>คณะ IT</h1> -->
+    <div class="row">
+        {% for cl in classes %}
+        {% if fa == cl.faculty %}
+        <div class="col-3">
+            <h4>{{ cl.name }}</h4><img src="{{ cl.picture.url }}" width="193" height="130">
+            <!-- <button onclick="myFunction()">รายละเอียด</button> -->
+            <!-- <div id="myDIV">
+                <h3></h3>
+            </div> -->
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+<!-- <script>
+    function myFunction() {
+        var x = document.getElementById("myDIV");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script> -->
+{% endblock %}

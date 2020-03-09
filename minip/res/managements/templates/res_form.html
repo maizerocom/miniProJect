@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>เพิ่มร้านอาหาร</h1>
+    <br />
+    {% if res.id %}
+    <!-- Submit to student_update view -->
+        {% else %}
+        <!-- Submit to student_add view -->
+        <form method="POST" action="{% url 'res_add' %}">
+            {% endif %}
+            {% csrf_token %}
+            {% if msg %}<p class="text-success">{{msg}}</p>{% endif %}
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <label for="section">ชื่อร้าน:</label>
+                    <input type="text" class="form-control" name="name" id="name" value="{{res.name}}" required>
+                </div>
+                <div class="form-group col-6">
+                    <label for="section">เจ้าของร้าน:</label>
+                    <input type="text" class="form-control" name="owner" id="owner" value="{{res.owner}}" required>
+                </div>
+                <div class="form-group col-6">
+                    <label for="section">รูปภาพ:</label>
+                    <input type="file" class="form-control-file" id="picture" name="picture" value="{{res.picture}}" required>
+                </div>
+                <div class="form-group col-6">
+                    <label for="section">เวลาเปิด:</label>
+                    <input type="time" class="form-control" name="open_time" id="open_time" value="{{res.open_time}}"
+                        required>
+                </div>
+                <div class="form-group col-6">
+                    <label for="section">เวลาปิด:</label>
+                    <input type="time" class="form-control" name="close_time" id="close_time" value="{{res.close_time}}"
+                        required>
+                </div>
+                <div class="form-group col-6">
+                    <label for="section">คะแนน:</label>
+                    <select class="form-control" id="rating" name="rating" required>
+                        <option value=''>---เลือก---</option>
+                        {% for i in '1234' %}
+                            <option value={{i}}>{{i}} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-6">
+                    <label for="section">อนุมัติโดย:</label>
+                    <input type="text" class="form-control" name="approve_by" id="approve_by" value="{{res.approve_by}}"
+                        required>
+                </div>
+                <div class="form-group col-6">
+                    <label for="section">วันที่อนุมัติ:</label>
+                    <input type="date" class="form-control" name="approve_date" id="approve_date" value="{{res.approve_date}}"
+                        required>
+                </div>
+                <div class="form-group col-6">
+                    <label for="section">คณะ:</label>
+                    <select class="form-control" id="faculty" name="faculty" required>
+                        <option value=''>---เลือก---</option>
+                        {% for i in faculty %}
+                        <option value='{{i.id}}'>{{i}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <button type="reset" class="btn btn-warning ml-3">Reset Form</button>
+            <button type="submit" class="btn btn-primary ml-3">Submit</button>
+        </form>
+</div>
+{% endblock %}
